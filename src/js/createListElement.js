@@ -1,7 +1,7 @@
 export { createListImagesElement };
 
 function createListImagesElement({ largeImageURL, webformatURL, tags, likes, views, comments, downloads }) {
-    return `<li><a class='card' href="${largeImageURL}">
+    return `<a class='card' href="${largeImageURL}">
     <div class="card__img">
         <img src='${webformatURL}' alt='${tags}' loading='lazy' width = "240px" />
     </div>
@@ -23,5 +23,5 @@ function createListImagesElement({ largeImageURL, webformatURL, tags, likes, vie
             <span>${downloads}</span>
         </p>
     </div>
-</a></li>`
+</a>`
 }
