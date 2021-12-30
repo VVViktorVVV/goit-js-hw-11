@@ -5,6 +5,7 @@ export default class NewFetchClass {
     this.searchQuery = '';
     this.page = 1;
     this.perPage = 40;
+    
   };
 
   async fetchImages() {
@@ -23,6 +24,7 @@ export default class NewFetchClass {
       });
       console.log(response.data)
       this.incrementPage();
+      
 
       return response.data;
     }

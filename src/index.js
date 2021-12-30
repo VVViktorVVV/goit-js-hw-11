@@ -18,6 +18,7 @@ btn.addEventListener('click', loadMoreImg);
 
 function loadImg(e) {
     e.preventDefault();
+    btn.classList.add('is-hidden');
 
     if (newfetch.query !== 0) {
       imagesList.innerHTML = ''  
@@ -27,18 +28,26 @@ function loadImg(e) {
     newfetch.resetPage();
 
     if (newfetch.query == 0) {
-       return Notify.info(`Enter your search term`)
+        
+        return Notify.info(`Enter your search term`);
+        
     };
 
 
     newfetch.fetchImages().then(array => {
+        
         if (array.hits.length === 0) {
             return Notify.failure("Sorry, there are no images matching your search query. Please try again.");
         } else {
             renderImagesList(array.hits);
             lightBox();
             Notify.success(`Hooray! We found ${array.totalHits} images.`);
-            btn.classList.remove('is-hidden');
+            
+            if (newfetch.perPage > array.totalHits) {
+                Notify.info("We're sorry, but you've reached the end of search results.");
+            } else {
+                btn.classList.remove('is-hidden');
+            }
         }
         
     });
@@ -53,7 +62,7 @@ function loadMoreImg() {
         renderImagesList(array.hits);
         lightBox();
 
-        if (newfetch.page * array.hits.length >= array.totalHits) {
+        if ( newfetch.page * newfetch.perPage > array.totalHits) {
             btn.classList.add('is-hidden');
 
             Notify.info("We're sorry, but you've reached the end of search results.");
